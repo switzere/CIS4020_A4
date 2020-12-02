@@ -22,7 +22,7 @@ ui <- dashboardPage(
       # First tab content
       tabItem(tabName = "home",
               fluidRow(
-                box(plotOutput("plot1", height = 250)),
+                box(plotOutput("plotExample", height = 250)),
                 
                 box(
                   title = "Controls",
@@ -35,7 +35,7 @@ ui <- dashboardPage(
       tabItem(tabName = "graph1",
               h2("Graph1 content"),
               fluidRow(
-                box(plotOutput("plot2")),
+                box(plotOutput("plot1")),
                 box(
                   title = "Location",
                   selectInput(inputId = "location",
@@ -52,7 +52,7 @@ ui <- dashboardPage(
                                 "Alberta" = "Alberta",
                                 "British Columbia" = "British.Columbia"
                               ),
-                              selected = "Canada"
+                              selected = "Canada",
                   )
                 )
               )
@@ -62,25 +62,26 @@ ui <- dashboardPage(
       tabItem(tabName = "graph2",
               h2("Graph2 content"),
               fluidRow(
-                box(plotOutput("plot3")),
-                box(
-                  title = "Province",
-                  selectInput(inputId = "province",
-                              label = "Location:",
-                              choices = c("Newfoundland and Labrador" = "Newfoundland and Labrador",
-                                "Prince Edward Island" = "Prince Edward.Island",
-                                "Nova Scotia" = "Nova Scotia",
-                                "New Brunswick" = "New Brunswick",
-                                "Quebec" = "Quebec",
-                                "Ontario" = "Ontario",
-                                "Manitoba" = "Manitoba",
-                                "Saskatchewan" = "Saskatchewan",
-                                "Alberta" = "Alberta",
-                                "British Columbia" = "British Columbia"
-                              ),
-                              selected = "Ontario",
-                              multiple = TRUE
-                  )
+                box(plotOutput("plot2")),
+                box(plotOutput("plot3"))
+                ),
+              box(
+                title = "Province",
+                selectInput(inputId = "province",
+                            label = "Location:",
+                            choices = c("Newfoundland and Labrador" = "Newfoundland and Labrador",
+                                        "Prince Edward Island" = "Prince Edward.Island",
+                                        "Nova Scotia" = "Nova Scotia",
+                                        "New Brunswick" = "New Brunswick",
+                                        "Quebec" = "Quebec",
+                                        "Ontario" = "Ontario",
+                                        "Manitoba" = "Manitoba",
+                                        "Saskatchewan" = "Saskatchewan",
+                                        "Alberta" = "Alberta",
+                                        "British Columbia" = "British Columbia"
+                            ),
+                            selected = "Ontario",
+                            multiple = TRUE
                 )
               )
       ),
@@ -105,21 +106,38 @@ server <- function(input, output) {
   set.seed(122)
   histdata <- rnorm(500)
   
-  output$plot1 <- renderPlot({
+  output$plotExample <- renderPlot({
     print(input$slider)
     data <- histdata[seq_len(input$slider)]
     hist(data)
   })
   
-  output$plot2 <- renderPlot({
+  output$plot1 <- renderPlot({
     print(input$location)
     #aes_string is used because input$location is passed to it as a string
     ggplot(g1Data, aes_string(x="Year", y=input$location), color="red") + geom_line() 
   })
   
-  output$plot3 <- renderPlot({
+  output$plot2 <- renderPlot({
+    g2Data$Month <- factor(g2Data$Month, levels = c("January","February", "March", "April", "May", "June", "July", "August", "September", "October"))
+    
     ggplot(data = subset(g2Data, Province %in% strsplit(input$province, "  +")), aes(x = Month, y = Unemployment.Rate,  fill = Province)) +
-      geom_bar(stat="identity", position="dodge") 
+      geom_bar(stat="identity", position="dodge") +
+      expand_limits(y = c(0,18)) + 
+      theme(legend.direction = "vertical", legend.justification='left')
+  })
+  
+  output$plot3 <- renderPlot({
+    g2.1Data$Month <- factor(g2.1Data$Month, levels = c("January","February", "March", "April", "May", "June", "July", "August", "September", "October"))
+    
+    #ggplot(data = subset(g2.1Data, Province %in% c("Ontario","Quebec") ), aes(y = Total.Covid.Cases, x = Month, group=1, color=Province)) +
+    
+    temp <- g2.1Data[g2.1Data$Province %in% input$province,]
+    
+    ggplot(data = temp, aes(y = Total.Covid.Cases, x = Month, group=Province, color=Province)) +
+      geom_line(size = 3, alpha = 0.75) +
+      geom_point(size =3, alpha = 0.75) +
+      ggtitle("Total Covid Cases Canada")
   })
 }
 
