@@ -87,7 +87,9 @@ ui <- dashboardPage(
       ),
       # Graph3 content
       tabItem(tabName = "graph3",
-              h2("Graph3 content")
+              h2("Graph3 content"),
+              h3("I want to have a slider for covid effect so that the user can put in a perect of what they think
+                 covid will do to income and then use that to show a prediction of what it ends up being for 2020")
       ),
       # Graph4 content
       tabItem(tabName = "graph4",
@@ -132,9 +134,9 @@ server <- function(input, output) {
     
     #ggplot(data = subset(g2.1Data, Province %in% c("Ontario","Quebec") ), aes(y = Total.Covid.Cases, x = Month, group=1, color=Province)) +
     
-    temp <- g2.1Data[g2.1Data$Province %in% input$province,]
+    #temp <- g2.1Data[g2.1Data$Province %in% input$province,]
     
-    ggplot(data = temp, aes(y = Total.Covid.Cases, x = Month, group=Province, color=Province)) +
+    ggplot(data = subset(g2.1Data, Province %in% strsplit(input$province, "  +")), aes(y = Total.Covid.Cases, x = Month, group=Province, color=Province)) +
       geom_line(size = 3, alpha = 0.75) +
       geom_point(size =3, alpha = 0.75) +
       ggtitle("Total Covid Cases Canada")
