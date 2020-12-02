@@ -1,0 +1,101 @@
+﻿Province,Month,Total Covid Cases,Rate of Covid Cases
+Ontario,January,3,3
+Ontario,February,15,12
+Ontario,March,2392,2377
+Ontario,April,16608,14216
+Ontario,May,28263,11655
+Ontario,June,35068,6805
+Ontario,July,39333,4265
+Ontario,August,42421,3088
+Ontario,September,52248,9827
+Ontario,October,76707,24459
+British Columbia,January,1,1
+British Columbia,February,8,7
+British Columbia,March,1066,1058
+British Columbia,April,2145,1079
+British Columbia,May,2597,452
+British Columbia,June,2916,319
+British Columbia,July,3641,725
+British Columbia,August,5848,2207
+British Columbia,September,9220,3372
+British Columbia,October,15122,5902
+Quebec,January,0,0
+Quebec,February,1,1
+Quebec,March,4611,4610
+Quebec,April,28646,24035
+Quebec,May,51354,22708
+Quebec,June,55458,4104
+Quebec,July,59458,4000
+Quebec,August,62614,3156
+Quebec,September,75221,12607
+Quebec,October,106981,31760
+Nova Scotia,January,0,0
+Nova Scotia,February,0,0
+Nova Scotia,March,173,173
+Nova Scotia,April,959,786
+Nova Scotia,May,1057,98
+Nova Scotia,June,1062,5
+Nova Scotia,July,1069,7
+Nova Scotia,August,1085,16
+Nova Scotia,September,1088,3
+Nova Scotia,October,1111,23
+New Brunswick,January,0,0
+New Brunswick,February,0,0
+New Brunswick,March,81,81
+New Brunswick,April,118,37
+New Brunswick,May,132,14
+New Brunswick,June,165,33
+New Brunswick,July,170,5
+New Brunswick,August,191,21
+New Brunswick,September,200,9
+New Brunswick,October,344,144
+Manitoba,January,0,0
+Manitoba,February,0,0
+Manitoba,March,109,109
+Manitoba,April,268,159
+Manitoba,May,284,16
+Manitoba,June,314,30
+Manitoba,July,403,89
+Manitoba,August,1232,829
+Manitoba,September,2029,797
+Manitoba,October,6034,4005
+Prince Edward Island,January,0,0
+Prince Edward Island,February,0,0
+Prince Edward Island,March,21,21
+Prince Edward Island,April,27,6
+Prince Edward Island,May,27,0
+Prince Edward Island,June,27,0
+Prince Edward Island,July,36,9
+Prince Edward Island,August,44,8
+Prince Edward Island,September,59,15
+Prince Edward Island,October,64,5
+Saskatchewan,January,0,0
+Saskatchewan,February,0,0
+Saskatchewan,March,193,193
+Saskatchewan,April,415,222
+Saskatchewan,May,646,231
+Saskatchewan,June,785,139
+Saskatchewan,July,1334,549
+Saskatchewan,August,1622,288
+Saskatchewan,September,1927,305
+Saskatchewan,October,3218,1291
+Alberta,January,0,0
+Alberta,February,0,0
+Alberta,March,754,754
+Alberta,April,5573,4819
+Alberta,May,7044,1471
+Alberta,June,8108,1064
+Alberta,July,10843,2735
+Alberta,August,14066,3223
+Alberta,September,18235,4169
+Alberta,October,28770,10535
+Newfoundland and Labrador,January,0,0
+Newfoundland and Labrador,February,0,0
+Newfoundland and Labrador,March,175,175
+Newfoundland and Labrador,April,259,84
+Newfoundland and Labrador,May,261,2
+Newfoundland and Labrador,June,261,0
+Newfoundland and Labrador,July,266,5
+Newfoundland and Labrador,August,269,3
+Newfoundland and Labrador,September,275,6
+Newfoundland and Labrador,October,291,16

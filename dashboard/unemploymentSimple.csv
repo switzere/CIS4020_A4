@@ -1,0 +1,101 @@
+Province,Month,Unemployment Rate,Eviction Freeze,MonthNum
+British Columbia,January,4.5,0,1
+British Columbia,February,5,0,2
+British Columbia,March,7.2,0,3
+British Columbia,April,11.5,1,4
+British Columbia,May,13.4,1,5
+British Columbia,June,13,1,6
+British Columbia,July,11.1,1,7
+British Columbia,August,10.7,1,8
+British Columbia,September,8.4,0,9
+British Columbia,October,8,0,10
+Alberta,January,7.3,0,1
+Alberta,February,7.2,0,2
+Alberta,March,8.7,0,3
+Alberta,April,13.4,1,4
+Alberta,May,15.5,0,5
+Alberta,June,15.5,0,6
+Alberta,July,12.8,0,7
+Alberta,August,11.8,0,8
+Alberta,September,11.7,0,9
+Alberta,October,10.7,0,10
+PEI,January,7.5,0,1
+PEI,February,8,0,2
+PEI,March,8.6,0,3
+PEI,April,10.8,1,4
+PEI,May,13.9,1,5
+PEI,June,15.2,1,6
+PEI,July,11.7,0,7
+PEI,August,10.7,0,8
+PEI,September,10.1,0,9
+PEI,October,10,0,10
+Saskatchewan,January,6,0,1
+Saskatchewan,February,6.2,0,2
+Saskatchewan,March,7.3,0,3
+Saskatchewan,April,11.3,1,4
+Saskatchewan,May,12.5,1,5
+Saskatchewan,June,11.6,1,6
+Saskatchewan,July,8.8,1,7
+Saskatchewan,August,7.9,0,8
+Saskatchewan,September,6.8,0,9
+Saskatchewan,October,6.4,0,10
+Ontario,January,5.2,0,1
+Ontario,February,5.5,0,2
+Ontario,March,7.6,0,3
+Ontario,April,11.3,1,4
+Ontario,May,13.6,1,5
+Ontario,June,12.2,1,6
+Ontario,July,11.3,1,7
+Ontario,August,10.6,1,8
+Ontario,September,9.5,0,9
+Ontario,October,9.6,0,10
+Manitoba,January,5.1,0,1
+Manitoba,February,5,0,2
+Manitoba,March,6.4,0,3
+Manitoba,April,11.4,1,4
+Manitoba,May,11.2,1,5
+Manitoba,June,10.1,1,6
+Manitoba,July,8.2,1,7
+Manitoba,August,8.1,1,8
+Manitoba,September,7,1,9
+Manitoba,October,7.1,0,10
+Nova Scotia,January,7.4,0,1
+Nova Scotia,February,7.8,0,2
+Nova Scotia,March,9,0,3
+Nova Scotia,April,12,1,4
+Nova Scotia,May,13.6,1,5
+Nova Scotia,June,13,1,6
+Nova Scotia,July,10.8,0,7
+Nova Scotia,August,10.3,0,8
+Nova Scotia,September,7.9,0,9
+Nova Scotia,October,8.7,0,10
+Quebec,January,5.1,0,1
+Quebec,February,4.5,0,2
+Quebec,March,8.1,0,3
+Quebec,April,17,1,4
+Quebec,May,13.7,1,5
+Quebec,June,10.7,1,6
+Quebec,July,9.5,1,7
+Quebec,August,8.7,0,8
+Quebec,September,7.4,0,9
+Quebec,October,7.7,0,10
+New Brunswick,January,7.5,0,1
+New Brunswick,February,6.9,0,2
+New Brunswick,March,8.8,0,3
+New Brunswick,April,13.2,1,4
+New Brunswick,May,12.8,1,5
+New Brunswick,June,9.9,0,6
+New Brunswick,July,9.8,0,7
+New Brunswick,August,9.4,0,8
+New Brunswick,September,10.4,0,9
+New Brunswick,October,10.1,0,10
+Newfoundland and Labrador,January,11.9,0,1
+Newfoundland and Labrador,February,12,0,2
+Newfoundland and Labrador,March,11.7,0,3
+Newfoundland and Labrador,April,16,0,4
+Newfoundland and Labrador,May,16.3,0,5
+Newfoundland and Labrador,June,16.5,0,6
+Newfoundland and Labrador,July,15.6,0,7
+Newfoundland and Labrador,August,13.1,0,8
+Newfoundland and Labrador,September,14.8,0,9
+Newfoundland and Labrador,October,12.8,0,10

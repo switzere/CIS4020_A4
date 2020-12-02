@@ -1,6 +1,9 @@
 ## app.R ##
 library(shinydashboard)
 library(shiny)
+library(ggplot2)
+
+provinces <- c("Newfoundland.and.Labrador", "Prince.Edward.Island", "Nova.Scotia", "New.Brunswick", "Quebec", "Ontario", "Manitoba", "Saskatchewan", "Alberta", "British.Columbia")
 
 ui <- dashboardPage(
   dashboardHeader(title = "Basic dashboard"),
@@ -33,12 +36,55 @@ ui <- dashboardPage(
       tabItem(tabName = "graph1",
               h2("Graph1 content"),
               fluidRow(
-                box(plotOutput("plot2"))
+                box(plotOutput("plot2")),
+                box(
+                  title = "Location",
+                  selectInput(inputId = "location",
+                              label = "Location:",
+                              choices = c("Canada" = "Canada",
+                                "Newfoundland and Labrador" = "Newfoundland.and.Labrador",
+                                "Prince Edward Island" = "Prince.Edward.Island",
+                                "Nova Scotia" = "Nova.Scotia",
+                                "New Brunswick" = "New.Brunswick",
+                                "Quebec" = "Quebec",
+                                "Ontario" = "Ontario",
+                                "Manitoba" = "Manitoba",
+                                "Saskatchewan" = "Saskatchewan",
+                                "Alberta" = "Alberta",
+                                "British Columbia" = "British.Columbia"
+                              ),
+                              selected = "Canada"
+                  )
+                )
               )
+              
       ),
       # Graph2 content
       tabItem(tabName = "graph2",
-              h2("Graph2 content")
+              h2("Graph2 content"),
+              fluidRow(
+                box(plotOutput("plot3")),
+                box(
+                  title = "Province",
+                  selectInput(inputId = "province",
+                              label = "Location:",
+                              choices = c("Newfoundland and Labrador" = "Newfoundland.and.Labrador",
+                                "Prince Edward Island" = "Prince.Edward.Island",
+                                "Nova Scotia" = "Nova.Scotia",
+                                "New Brunswick" = "New.Brunswick",
+                                "Quebec" = "Quebec",
+                                "Ontario" = "Ontario",
+                                "Manitoba" = "Manitoba",
+                                "Saskatchewan" = "Saskatchewan",
+                                "Alberta" = "Alberta",
+                                "British Columbia" = "British.Columbia"
+                              ),
+                              selected = "Ontario",
+                              multiple = TRUE,
+                              selectize = FALSE
+                  )
+                )
+              )
       ),
       # Graph3 content
       tabItem(tabName = "graph3",
@@ -62,12 +108,21 @@ server <- function(input, output) {
   histdata <- rnorm(500)
   
   output$plot1 <- renderPlot({
+    print(input$slider)
     data <- histdata[seq_len(input$slider)]
     hist(data)
   })
   
   output$plot2 <- renderPlot({
-    plot(g1Data)  
+    print(input$location)
+    #aes_string is used because input$location is passed to it as a string
+    ggplot(g1Data, aes_string(x="Year", y=input$location), color="red") + geom_line() 
+  })
+  
+  output$plot3 <- renderPlot({
+    #BROKEN PLOT
+    ggplot(data = subset(g2Data, Province %in% c("Alberta", "Ontario")), aes(x = Month, y = Unemployment.Rate,  fill = Province)) +
+      geom_bar(stat="identity", position="dodge") 
   })
 }
 
