@@ -3,7 +3,6 @@ library(shinydashboard)
 library(shiny)
 library(ggplot2)
 
-provinces <- c("Newfoundland.and.Labrador", "Prince.Edward.Island", "Nova.Scotia", "New.Brunswick", "Quebec", "Ontario", "Manitoba", "Saskatchewan", "Alberta", "British.Columbia")
 
 ui <- dashboardPage(
   dashboardHeader(title = "Basic dashboard"),
@@ -68,20 +67,19 @@ ui <- dashboardPage(
                   title = "Province",
                   selectInput(inputId = "province",
                               label = "Location:",
-                              choices = c("Newfoundland and Labrador" = "Newfoundland.and.Labrador",
-                                "Prince Edward Island" = "Prince.Edward.Island",
-                                "Nova Scotia" = "Nova.Scotia",
-                                "New Brunswick" = "New.Brunswick",
+                              choices = c("Newfoundland and Labrador" = "Newfoundland and Labrador",
+                                "Prince Edward Island" = "Prince Edward.Island",
+                                "Nova Scotia" = "Nova Scotia",
+                                "New Brunswick" = "New Brunswick",
                                 "Quebec" = "Quebec",
                                 "Ontario" = "Ontario",
                                 "Manitoba" = "Manitoba",
                                 "Saskatchewan" = "Saskatchewan",
                                 "Alberta" = "Alberta",
-                                "British Columbia" = "British.Columbia"
+                                "British Columbia" = "British Columbia"
                               ),
                               selected = "Ontario",
-                              multiple = TRUE,
-                              selectize = FALSE
+                              multiple = TRUE
                   )
                 )
               )
@@ -120,8 +118,7 @@ server <- function(input, output) {
   })
   
   output$plot3 <- renderPlot({
-    #BROKEN PLOT
-    ggplot(data = subset(g2Data, Province %in% c("Alberta", "Ontario")), aes(x = Month, y = Unemployment.Rate,  fill = Province)) +
+    ggplot(data = subset(g2Data, Province %in% strsplit(input$province, "  +")), aes(x = Month, y = Unemployment.Rate,  fill = Province)) +
       geom_bar(stat="identity", position="dodge") 
   })
 }
