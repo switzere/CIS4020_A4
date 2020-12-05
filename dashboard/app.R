@@ -23,17 +23,17 @@ ui <- dashboardPage(
     tabItems(
       # First tab content
       tabItem(tabName = "home",
-              h2("Social Justice Issue"),
-              h4("Investigating COVID-19 impacts on low income group’s access to affordable housing in Canada between January 2010 to October 2020."),
+              h2(tags$b("Social Justice Issue")),
+              h3("Investigating COVID-19 impacts on low income group’s access to affordable housing in Canada between January 2010 to October 2020."),
               br(),
-              h2("Questions Answered"),
-              h2(actionLink("switchGraph1", "How has COVID-19 changed the amount of Canadians who meet the requirements for affordable housing in Canada?")),
-              h2(actionLink("switchGraph2", "How has COVID-19 affected evictions and job loss in Canada for 2020?")),
-              h2(actionLink("switchGraph3", "How has the low income communities in Canada been affected by the COVID-19 pandemic in terms of cost of living and income?")),
-              h2(actionLink("switchGraph4", "How has the creation of affordable housing in Ontario been affected by COVID-19? Has there been more, less or the same amount created?")),
+              h2(tags$b("Questions Answered")),
+              h3(actionLink("switchGraph1", "How has COVID-19 changed the amount of Canadians who meet the requirements for affordable housing in Canada?")),
+              h3(actionLink("switchGraph2", "How has COVID-19 affected evictions and job loss in Canada for 2020?")),
+              h3(actionLink("switchGraph3", "How has the low income communities in Canada been affected by the COVID-19 pandemic in terms of cost of living and income?")),
+              h3(actionLink("switchGraph4", "How has the creation of affordable housing in Ontario been affected by COVID-19? Has there been more, less or the same amount created?")),
               br(),
-              h2("Literature Review"),
-              h4("stufff...things...")
+              h2(tags$b("Literature Review")),
+              h3("stufff...things...")
       ),
       
       # Graph1 content
@@ -62,7 +62,7 @@ ui <- dashboardPage(
                 )
               ),
               h3("This graph...."),
-              h5("LINK TO METHOD"),
+              h5(actionLink("switchMethods1", "Click to learn more about multiple linear regression")),
               br(),
               h3("Data Sets"),
               h5("Government of Canada, S. (2018, August 23). Core housing need, 2016 Census. Retrieved November 27, 2020, from https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/chn-biml/index-eng.cfm"),
@@ -96,7 +96,7 @@ ui <- dashboardPage(
                 )
               )),
               h3("This graph...."),
-              h5("LINK TO METHOD"),
+              h5(actionLink("switchMethods2", "Click to learn more about multiple linear regression")),
               br(),
               h3("Data Sets"),
               h5("Statistics Canada. Table 14-10-0287-03 Labour force characteristics by province, monthly, seasonally adjusted"),
@@ -126,7 +126,7 @@ ui <- dashboardPage(
               
               br(),
               h3("This graph...."),
-              h5("LINK TO METHOD"),
+              h5(actionLink("switchMethods3", "Click to learn more about linear regression")),
               br(),
               h3("Data Sets"),
               h5("Statistics Canada. Table 11-10-0222-01 Household spending, Canada, regions and provinces"),
@@ -138,22 +138,22 @@ ui <- dashboardPage(
               h2("Graph4 content"),
               br(),
               h3("This graph...."),
-              h5("LINK TO METHOD"),
+              h5(actionLink("switchMethods4", "Click to learn more about linear regression")),
               br(),
               h3("Data Sets"),
               h5("Government of Ontario. (2019, November 15). Ontario (Rep.). Retrieved November 27, 2020, from Government of Ontario website: https://www.ontario.ca/page/2018-2019-investment-affordable-housing-annual-public-reports")
       ),
-      # Graph4 content
+      # Methods
       tabItem(tabName = "methods",
-              h2("Methods"),
-              h3("Linear Regression"),
+              h2(tags$b("Methods")),
+              h3(tags$b("Linear Regression")),
               h4("Linear Regression is a statistical method that allows us to study the relationship between 2 quantitative variables. It assumes there is a relationship between the variables we are studying, and the data is normally distributed."),
-              h4("Citation: "),
+              h4("Citation: Yale.edu, Stats. (n.d.). Multiple Linear Regression. Retrieved November 25, 2020, from http://www.stat.yale.edu/Courses/1997-98/101/linreg.htm"),
               h4("Method Demo: "),
               br(),
-              h3("Multiple Linear Regression"),
+              h3(tags$b("Multiple Linear Regression")),
               h4("Multiple Linear Regression attempts to model the relationship between 2 or more explanatory variables and the response variable using a linear equation. It assumes there is a linear relationship between the variables we are studying, and the data is normally distributed."),
-              h4("Citation: "),
+              h4("Citation: Yale.edu, Stats. (n.d.). Multiple Linear Regression. Retrieved November 25, 2020, from http://www.stat.yale.edu/Courses/1997-98/101/linmult.htm"),
               h4("Method Demo: ")
       )
     )
@@ -190,6 +190,11 @@ server <- function(input, output, session) {
     updateTabItems(session, "tabs", newtab)
   })
   
+  observeEvent(c(input$switchMethods1,input$switchMethods2, input$switchMethods3, input$switchMethods4), {
+    newtab <- switch(input$tabs, "graph1" = "methods", "graph2" = "methods", "graph3" = "methods", "graph4" = "methods")
+    updateTabItems(session, "tabs", newtab)
+  })
+  
   
   
   
@@ -200,7 +205,6 @@ server <- function(input, output, session) {
   })
   
   output$plot1 <- renderPlot({
-    print(input$location)
     #aes_string is used because input$location is passed to it as a string
     ggplot(g1Data, aes_string(x="Year", y=input$location), color="red") + geom_line() 
   })
