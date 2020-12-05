@@ -9,6 +9,7 @@ ui <- dashboardPage(
   ## Sidebar content
   dashboardSidebar(
     sidebarMenu(
+      id = "tabs",
       menuItem("Home", tabName = "home", icon = icon("angry")),
       menuItem("Graph 1", tabName = "graph1", icon = icon("angry")),
       menuItem("Graph 2", tabName = "graph2", icon = icon("angry")),
@@ -26,7 +27,7 @@ ui <- dashboardPage(
               h4("Investigating COVID-19 impacts on low income group’s access to affordable housing in Canada between January 2010 to October 2020."),
               br(),
               h2("Questions Answered"),
-              h4("How has COVID-19 changed the amount of Canadians who meet the requirements for affordable housing in Canada?"),
+              actionLink("switchtab", "How has COVID-19 changed the amount of Canadians who meet the requirements for affordable housing in Canada?"),
               h4("How has COVID-19 affected evictions and job loss in Canada for 2020?"),
               h4("How has the low income communities in Canada been affected by the COVID-19 pandemic in terms of cost of living and income?"),
               h4("How has the creation of affordable housing in Ontario been affected by COVID-19? Has there been more, less or the same amount created?"),
@@ -116,6 +117,13 @@ ui <- dashboardPage(
               h2("Graph3 content"),
               h3("I want to have a slider for covid effect so that the user can put in a perect of what they think
                  covid will do to income and then use that to show a prediction of what it ends up being for 2020"),
+
+              box(plotOutput("plot4")),
+              box(
+                title = "Controls",
+                sliderInput("slider", "Number of observations:", 1, 200, 100)
+              ),
+              
               br(),
               h3("This graph...."),
               h5("LINK TO METHOD"),
@@ -123,6 +131,7 @@ ui <- dashboardPage(
               h3("Data Sets"),
               h5("Statistics Canada. Table 11-10-0222-01 Household spending, Canada, regions and provinces"),
               h5("Statistics Canada. Table 11-10-0012-01 Distribution of total income by census family type and age of older partner, parent or individual")
+              
       ),
       # Graph4 content
       tabItem(tabName = "graph4",
@@ -156,9 +165,21 @@ ui <- dashboardPage(
 
 
 
-server <- function(input, output) {
+server <- function(input, output, session) {
   set.seed(122)
   histdata <- rnorm(500)
+  
+  
+  observeEvent(input$switchtab, {
+    newtab <- switch(input$tabs, "home" = "graph2")
+    updateTabItems(session, "tabs", newtab)
+  })
+  
+  
+  
+  
+  
+  
   
   output$plotExample <- renderPlot({
     print(input$slider)
@@ -192,6 +213,19 @@ server <- function(input, output) {
       geom_line(size = 3, alpha = 0.75) +
       geom_point(size =3, alpha = 0.75) +
       ggtitle("Total Covid Cases Canada")
+  })
+  
+  output$plot4 <- renderPlot({
+    
+    ggplot(g3Data, aes(x=Year, y=Expenditure, color=Type)) +
+      geom_point(alpha=0.5, size=2) +
+      geom_smooth(method='lm', formula = y~x) +
+      #scale_y_continuous(labels = comma) +
+      ggtitle("Income for Households Across Canada and Average Household Expenditures") + 
+      ylab("Amount ($)") +
+      scale_x_continuous(breaks=c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020)) +
+      expand_limits(y = 0) +
+      labs(color = "Legend")
   })
 }
 
