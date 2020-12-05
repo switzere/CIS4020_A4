@@ -27,10 +27,10 @@ ui <- dashboardPage(
               h4("Investigating COVID-19 impacts on low income group’s access to affordable housing in Canada between January 2010 to October 2020."),
               br(),
               h2("Questions Answered"),
-              actionLink("switchGraph1", "How has COVID-19 changed the amount of Canadians who meet the requirements for affordable housing in Canada?"),
-              actionLink("switchGraph2", "How has COVID-19 affected evictions and job loss in Canada for 2020?"),
-              h4("How has the low income communities in Canada been affected by the COVID-19 pandemic in terms of cost of living and income?"),
-              h4("How has the creation of affordable housing in Ontario been affected by COVID-19? Has there been more, less or the same amount created?"),
+              h2(actionLink("switchGraph1", "How has COVID-19 changed the amount of Canadians who meet the requirements for affordable housing in Canada?")),
+              h2(actionLink("switchGraph2", "How has COVID-19 affected evictions and job loss in Canada for 2020?")),
+              h2(actionLink("switchGraph3", "How has the low income communities in Canada been affected by the COVID-19 pandemic in terms of cost of living and income?")),
+              h2(actionLink("switchGraph4", "How has the creation of affordable housing in Ontario been affected by COVID-19? Has there been more, less or the same amount created?")),
               br(),
               h2("Literature Review"),
               h4("stufff...things...")
@@ -180,6 +180,15 @@ server <- function(input, output, session) {
     updateTabItems(session, "tabs", newtab)
   })
   
+  observeEvent(input$switchGraph3, {
+    newtab <- switch(input$tabs, "home" = "graph3")
+    updateTabItems(session, "tabs", newtab)
+  })
+  
+  observeEvent(input$switchGraph4, {
+    newtab <- switch(input$tabs, "home" = "graph4")
+    updateTabItems(session, "tabs", newtab)
+  })
   
   
   
