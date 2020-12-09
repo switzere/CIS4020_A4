@@ -24,21 +24,21 @@ ui <- dashboardPage(
       # First tab content
       tabItem(tabName = "home",
               h2(tags$b("Social Justice Issue")),
-              h3("Investigating COVID-19 impacts on low income group’s access to affordable housing in Canada between January 2010 to October 2020."),
+              fluidRow(box(width = 12, h3("Investigating COVID-19 impacts on low income group’s access to affordable housing in Canada between January 2010 to October 2020."))),
               br(),
               h2(tags$b("Questions Answered")),
-              h3(actionLink("switchGraph1", "How has COVID-19 changed the amount of Canadians who meet the requirements for affordable housing in Canada?")),
-              h3(actionLink("switchGraph2", "How has COVID-19 affected evictions and job loss in Canada for 2020?")),
+              fluidRow(box(width = 12, h3(actionLink("switchGraph1", "How has COVID-19 changed the amount of Canadians who meet the requirements for affordable housing in Canada?")),
+              h3(actionLink("switchGraph2", "How has COVID-19 affected job loss in Canada for 2020?")),
               h3(actionLink("switchGraph3", "How has the low income communities in Canada been affected by the COVID-19 pandemic in terms of cost of living and income?")),
-              h3(actionLink("switchGraph4", "How has the creation of affordable housing in Ontario been affected by COVID-19? Has there been more, less or the same amount created?")),
+              h3(actionLink("switchGraph4", "How has the creation of affordable housing in Ontario been affected by COVID-19? Has there been more, less or the same amount created?")))),
               br(),
               h2(tags$b("Literature Review")),
-              h3("stufff...things...")
+              fluidRow(box(width = 12, h3("Affordable housing in Canada has become more and more of a pressing issue. With Covid-19 having a drastic effect on the Canadian economy our group looked at how this has effected affordable housing.  A study in 2014 found that “Nearly 1 in 5 households experience extreme housing affordability problems.” [Gaetz, S., Gulliver, T. & Richter, T. (2014)] This demonstrates how large a problem affordable housing is becoming. “From 2005 to 2018, the average residential price in the Toronto region increased about 150%” [Zhang, B. (2019)]. However even with this large increase the average wage did not increase thus leading to more people in need of affordable housing. Nowadays, Canada spends around 1% of its budget on social housing [Hulchanski, J. D. (2005)]. With the rise in rent and housing prices it is paramount that the government spends more money on social housing to try and fight the affordable housing crisis.")))
       ),
       
       # Graph1 content
       tabItem(tabName = "graph1",
-              h2("Graph1 content"),
+              h2("How has COVID-19 changed the amount of Canadians who meet the requirements for affordable housing in Canada?"),
               fluidRow(
                 box(plotOutput("plot1")),
                 box(
@@ -61,17 +61,16 @@ ui <- dashboardPage(
                   )
                 )
               ),
-              h3("This graph...."),
-              h5(actionLink("switchMethods1", "Click to learn more about multiple linear regression")),
+              box(width = 12, h3("This graph....")),
               br(),
               h3("Data Sets"),
-              h5("Government of Canada, S. (2018, August 23). Core housing need, 2016 Census. Retrieved November 27, 2020, from https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/chn-biml/index-eng.cfm"),
-              h5("CMHC. (2018, March 31). Canada Mortgage and Housing Corporation (Rep.). Retrieved November 27, 2020, from CMHC website:https://www.cmhc-schl.gc.ca/en/data-and-research/data-tables/households-core-housing-need-canada-province-territory-cmas")
+              box(width = 12, h5("Government of Canada, S. (2018, August 23). Core housing need, 2016 Census. Retrieved November 27, 2020, from https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/chn-biml/index-eng.cfm"),
+              h5("CMHC. (2018, March 31). Canada Mortgage and Housing Corporation (Rep.). Retrieved November 27, 2020, from CMHC website:https://www.cmhc-schl.gc.ca/en/data-and-research/data-tables/households-core-housing-need-canada-province-territory-cmas"))
               
       ),
       # Graph2 content
       tabItem(tabName = "graph2",
-              h2("Graph2 content"),
+              h2("How has COVID-19 affected job loss in Canada for 2020?"),
               fluidRow(
                 box(plotOutput("plot2")),
                 box(plotOutput("plot3"))
@@ -81,7 +80,7 @@ ui <- dashboardPage(
                 selectInput(inputId = "province",
                             label = "Location:",
                             choices = c("Newfoundland and Labrador" = "Newfoundland and Labrador",
-                                        "Prince Edward Island" = "Prince Edward.Island",
+                                        "Prince Edward Island" = "Prince Edward Island",
                                         "Nova Scotia" = "Nova Scotia",
                                         "New Brunswick" = "New Brunswick",
                                         "Quebec" = "Quebec",
@@ -95,11 +94,11 @@ ui <- dashboardPage(
                             multiple = TRUE
                 )
               )),
-              h3("This graph...."),
-              h5(actionLink("switchMethods2", "Click to learn more about multiple linear regression")),
+              box(width = 12, h3("This graph "),
+              h5(actionLink("switchMethods2", "Click to learn more about multiple linear regression"))),
               br(),
               h3("Data Sets"),
-              h5("Statistics Canada. Table 14-10-0287-03 Labour force characteristics by province, monthly, seasonally adjusted"),
+              fluidRow(box(width = 12, h5("Statistics Canada. Table 14-10-0287-03 Labour force characteristics by province, monthly, seasonally adjusted"),
               h5("CMHC. (2020, March 25). COVID-19: Eviction Bans and Suspensions to Support Renters. Retrieved November 27, 2020, from https://www.cmhc-schl.gc.ca/en/rental-housing/covid-19-eviction-bans-and-suspensions-to-support-renters"),
               h5("Canada, P. (2020, November 26). Government of Canada. Retrieved November 27, 2020, from https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html?topic=tilelink"),
               h5("Dunham, J. (2020, April 01). Rent relief: What each province is doing to help residential tenants during the pandemic. Retrieved November 27, 2020, from https://www.ctvnews.ca/health/coronavirus/rent-relief-what-each-province-is-doing-to-help-residential-tenants-during-the-pandemic-1.4877615"),
@@ -110,7 +109,7 @@ ui <- dashboardPage(
               h5("Jfeng. (2020, November 19). COVID-19: Information for Alberta Landlords and Tenants. Retrieved November 27, 2020, from https://www.landlordandtenant.org/covid-19-alberta-landlords-and-tenants/"),
               h5("Toolkit, W. (2020, April 02). Province announces moratorium on evictions. Retrieved November 27, 2020, from https://www.princeedwardisland.ca/en/news/province-announces-moratorium-evictions"),
               h5("Arthur White-Crummey, R. (2020, March 26). Saskatchewan suspending most evictions in light of COVID-19. Retrieved November 27, 2020, from https://leaderpost.com/news/saskatchewan/saskatchewan-suspending-most-evictions-in-light-of-covid-19"),
-              h5("Government of New Brunswick, C. (2017, April 24). REVISED / State of emergency declared in response to COVID-19. Retrieved November 27, 2020, from https://www2.gnb.ca/content/gnb/en/news/news_release.2020.03.0139.html"),
+              h5("Government of New Brunswick, C. (2017, April 24). REVISED / State of emergency declared in response to COVID-19. Retrieved November 27, 2020, from https://www2.gnb.ca/content/gnb/en/news/news_release.2020.03.0139.html"))),
       ),
       # Graph3 content
       tabItem(tabName = "graph3",
@@ -125,36 +124,36 @@ ui <- dashboardPage(
               ),
               
               br(),
-              h3("This graph...."),
-              h5(actionLink("switchMethods3", "Click to learn more about linear regression")),
+              box(width = 12, h3("This graph...."),
+              h5(actionLink("switchMethods3", "Click to learn more about linear regression"))),
               br(),
               h3("Data Sets"),
-              h5("Statistics Canada. Table 11-10-0222-01 Household spending, Canada, regions and provinces"),
-              h5("Statistics Canada. Table 11-10-0012-01 Distribution of total income by census family type and age of older partner, parent or individual")
+              box(width = 12, h5("Statistics Canada. Table 11-10-0222-01 Household spending, Canada, regions and provinces"),
+              h5("Statistics Canada. Table 11-10-0012-01 Distribution of total income by census family type and age of older partner, parent or individual"))
               
       ),
       # Graph4 content
       tabItem(tabName = "graph4",
               h2("Graph4 content"),
               br(),
-              h3("This graph...."),
-              h5(actionLink("switchMethods4", "Click to learn more about linear regression")),
+              box(width = 12, h3("This graph...."),
+              h5(actionLink("switchMethods4", "Click to learn more about linear regression"))),
               br(),
               h3("Data Sets"),
-              h5("Government of Ontario. (2019, November 15). Ontario (Rep.). Retrieved November 27, 2020, from Government of Ontario website: https://www.ontario.ca/page/2018-2019-investment-affordable-housing-annual-public-reports")
+              box(width = 12, h5("Government of Ontario. (2019, November 15). Ontario (Rep.). Retrieved November 27, 2020, from Government of Ontario website: https://www.ontario.ca/page/2018-2019-investment-affordable-housing-annual-public-reports"))
       ),
       # Methods
       tabItem(tabName = "methods",
               h2(tags$b("Methods")),
               h3(tags$b("Linear Regression")),
-              h4("Linear Regression is a statistical method that allows us to study the relationship between 2 quantitative variables. It assumes there is a relationship between the variables we are studying, and the data is normally distributed."),
+              box(width = 12, h4("Linear Regression is a statistical method that allows us to study the relationship between 2 quantitative variables. It assumes there is a relationship between the variables we are studying, and the data is normally distributed."),
               h4("Citation: Yale.edu, Stats. (n.d.). Multiple Linear Regression. Retrieved November 25, 2020, from http://www.stat.yale.edu/Courses/1997-98/101/linreg.htm"),
-              h4("Method Demo: "),
+              h4("Method Demo: ")),
               br(),
               h3(tags$b("Multiple Linear Regression")),
-              h4("Multiple Linear Regression attempts to model the relationship between 2 or more explanatory variables and the response variable using a linear equation. It assumes there is a linear relationship between the variables we are studying, and the data is normally distributed."),
+              box(width = 12, h4("Multiple Linear Regression attempts to model the relationship between 2 or more explanatory variables and the response variable using a linear equation. It assumes there is a linear relationship between the variables we are studying, and the data is normally distributed."),
               h4("Citation: Yale.edu, Stats. (n.d.). Multiple Linear Regression. Retrieved November 25, 2020, from http://www.stat.yale.edu/Courses/1997-98/101/linmult.htm"),
-              h4("Method Demo: ")
+              h4("Method Demo: "))
       )
     )
   )
@@ -206,7 +205,11 @@ server <- function(input, output, session) {
   
   output$plot1 <- renderPlot({
     #aes_string is used because input$location is passed to it as a string
-    ggplot(g1Data, aes_string(x="Year", y=input$location), color="red") + geom_line() 
+    ggplot(g1Data, aes_string(x="Year", y=input$location), color="red") + 
+      geom_line() + 
+      ylab("Core Housing Need Rate (%)") + 
+      ggtitle(paste(input$location, "Core Housing Need Rate From 1991 to 2016", sep=" ")) +
+      theme(plot.title = element_text(face = "bold", size = 18))
   })
   
   output$plot2 <- renderPlot({
@@ -215,7 +218,9 @@ server <- function(input, output, session) {
     ggplot(data = subset(g2Data, Province %in% strsplit(input$province, "  +")), aes(x = Month, y = Unemployment.Rate,  fill = Province)) +
       geom_bar(stat="identity", position="dodge") +
       expand_limits(y = c(0,18)) + 
-      theme(legend.direction = "vertical", legend.justification='left')
+      theme(legend.direction = "vertical", legend.justification='left') + 
+      ggtitle("Unemployment Rate by Province") +
+      theme(plot.title = element_text(face = "bold", size = 18))
   })
   
   output$plot3 <- renderPlot({
@@ -228,7 +233,8 @@ server <- function(input, output, session) {
     ggplot(data = subset(g2.1Data, Province %in% strsplit(input$province, "  +")), aes(y = Total.Covid.Cases, x = Month, group=Province, color=Province)) +
       geom_line(size = 3, alpha = 0.75) +
       geom_point(size =3, alpha = 0.75) +
-      ggtitle("Total Covid Cases Canada")
+      ggtitle("Total Covid Cases by Province") +
+      theme(plot.title = element_text(face = "bold", size = 18))
   })
   
   output$plot4 <- renderPlot({
