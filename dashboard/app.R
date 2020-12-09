@@ -117,10 +117,18 @@ ui <- dashboardPage(
               h3("I want to have a slider for covid effect so that the user can put in a perect of what they think
                  covid will do to income and then use that to show a prediction of what it ends up being for 2020"),
 
-              box(plotOutput("plot4")),
-              box(
-                title = "Controls",
-                sliderInput("slider", "Number of observations:", 1, 200, 100)
+              fluidRow(
+                box(
+                  plotOutput("plot4"),
+                  width = 8,
+                ),
+                box(
+                  title = "Controls",
+                  sliderInput(inputId = "percentSliderICF", "COVID-19 Affect on Two Parent Families(%):", 1, 200, 100),
+                  sliderInput(inputId = "percentSliderILP", "COVID-19 Affect on Lone Parent Families(%):", 1, 200, 100),
+                  sliderInput(inputId = "percentSliderINOT", "COVID-19 Affect on People not in Census Group(%):", 1, 200, 100),
+                  width = 4
+                )
               ),
               
               br(),
@@ -204,13 +212,6 @@ server <- function(input, output, session) {
   
   
   
-  
-  output$plotExample <- renderPlot({
-    print(input$slider)
-    data <- histdata[seq_len(input$slider)]
-    hist(data)
-  })
-  
   output$plot1 <- renderPlot({
     #aes_string is used because input$location is passed to it as a string
     ggplot(g1Data, aes_string(x="Year", y=input$location), color="red") + 
@@ -238,14 +239,59 @@ server <- function(input, output, session) {
     
     #temp <- g2.1Data[g2.1Data$Province %in% input$province,]
     
-    ggplot(data = subset(g2.1Data, Province %in% strsplit(input$province, "  +")), aes(y = Total.Covid.Cases, x = Month, group=Province, color=Province)) +
+    ggplot(data = subset(g2.1Data, Province %in% strsplit(input$province, "  +")), aes(y = Percentage.of.Pop.with.Covid.by.100, x = Month, group=Province, color=Province)) +
       geom_line(size = 3, alpha = 0.75) +
       geom_point(size =3, alpha = 0.75) +
       ggtitle("Total Covid Cases by Province") +
+      ylab("Total Rate of COVID-19 Cases (%)") + 
       theme(plot.title = element_text(face = "bold", size = 18))
   })
   
   output$plot4 <- renderPlot({
+    
+    ICF <- subset(g3Data, Type %in% "Income Couple Families")
+    ILP <- subset(g3Data, Type %in% "Income Lone Parents")
+    INOT <- subset(g3Data, Type %in% "Income Not in Census Group")
+    EXP <- subset(g3Data, Type %in% "Total expenditure")
+    
+    
+    lmICF <- lm(ICF$Expenditure ~ ICF$Year)
+    lmILP <- lm(ILP$Expenditure ~ ILP$Year)
+    lmINOT <- lm(INOT$Expenditure ~ INOT$Year)
+    lmEXP <- lm(EXP$Expenditure ~ EXP$Year)
+    
+
+    #y    =   m   x    +   b
+    ICF17 <- (lmICF$coefficients["ICF$Year"] * 2017 + lmICF$coefficients["(Intercept)"])
+    ICF18 <- (lmICF$coefficients["ICF$Year"] * 2018 + lmICF$coefficients["(Intercept)"])
+    ICF19 <- (lmICF$coefficients["ICF$Year"] * 2019 + lmICF$coefficients["(Intercept)"])
+    ICF20 <- (lmICF$coefficients["ICF$Year"] * 2020 + lmICF$coefficients["(Intercept)"])
+    ICF20 <- ICF20 * input$percentSliderICF/100
+    
+    ILP17 <- (lmILP$coefficients["ILP$Year"] * 2017 + lmILP$coefficients["(Intercept)"])
+    ILP18 <- (lmILP$coefficients["ILP$Year"] * 2018 + lmILP$coefficients["(Intercept)"])
+    ILP19 <- (lmILP$coefficients["ILP$Year"] * 2019 + lmILP$coefficients["(Intercept)"])
+    ILP20 <- (lmILP$coefficients["ILP$Year"] * 2020 + lmILP$coefficients["(Intercept)"])
+    ILP20 <- ILP20 * input$percentSliderILP/100
+    
+    INOT17 <- (lmINOT$coefficients["INOT$Year"] * 2017 + lmINOT$coefficients["(Intercept)"])
+    INOT18 <- (lmINOT$coefficients["INOT$Year"] * 2018 + lmINOT$coefficients["(Intercept)"])
+    INOT19 <- (lmINOT$coefficients["INOT$Year"] * 2019 + lmINOT$coefficients["(Intercept)"])
+    INOT20 <- (lmINOT$coefficients["INOT$Year"] * 2020 + lmINOT$coefficients["(Intercept)"])
+    INOT20 <- INOT20 * input$percentSliderINOT/100
+    
+    EXP17 <- (lmEXP$coefficients["EXP$Year"] * 2017 + lmEXP$coefficients["(Intercept)"])
+    EXP18 <- (lmEXP$coefficients["EXP$Year"] * 2018 + lmEXP$coefficients["(Intercept)"])
+    EXP19 <- (lmEXP$coefficients["EXP$Year"] * 2019 + lmEXP$coefficients["(Intercept)"])
+    EXP20 <- (lmEXP$coefficients["EXP$Year"] * 2020 + lmEXP$coefficients["(Intercept)"])
+    
+
+    #print(str(summary(lmICF$coefficients["(Intercept"])))
+    #print(names(summary(lmICF)))
+    
+    #ICF18 <- 
+    #ICF19 <-
+    
     
     ggplot(g3Data, aes(x=Year, y=Expenditure, color=Type)) +
       geom_point(alpha=0.5, size=2) +
@@ -255,7 +301,39 @@ server <- function(input, output, session) {
       ylab("Amount ($)") +
       scale_x_continuous(breaks=c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020)) +
       expand_limits(y = 0) +
-      labs(color = "Legend")
+      labs(color = "Legend") +
+      geom_point(alpha=0.75, size=3, aes(x = 2017, y = ICF17, color = "Income Couple Families", group = "ICF")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2018, y = ICF18, color = "Income Couple Families", group = "ICF")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2019, y = ICF19, color = "Income Couple Families", group = "ICF")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2020, y = ICF20, color = "Income Couple Families", group = "ICF")) +
+      geom_segment(aes(x = 2017, y = ICF17, xend = 2018, yend = ICF18, color = "Income Couple Families")) +
+      geom_segment(aes(x = 2018, y = ICF18, xend = 2019, yend = ICF19, color = "Income Couple Families")) +
+      geom_segment(aes(x = 2019, y = ICF19, xend = 2020, yend = ICF20, color = "Income Couple Families")) +
+      
+      geom_point(alpha=0.75, size=3, aes(x = 2017, y = ILP17, color = "Income Lone Parents")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2018, y = ILP18, color = "Income Lone Parents")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2019, y = ILP19, color = "Income Lone Parents")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2020, y = ILP20, color = "Income Lone Parents")) +
+      geom_segment(aes(x = 2017, y = ILP17, xend = 2018, yend = ILP18, color = "Income Lone Parents")) +
+      geom_segment(aes(x = 2018, y = ILP18, xend = 2019, yend = ILP19, color = "Income Lone Parents")) +
+      geom_segment(aes(x = 2019, y = ILP19, xend = 2020, yend = ILP20, color = "Income Lone Parents")) +
+      
+      geom_point(alpha=0.75, size=3, aes(x = 2017, y = INOT17, color = "Income Not in Census Group")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2018, y = INOT18, color = "Income Not in Census Group")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2019, y = INOT19, color = "Income Not in Census Group")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2020, y = INOT20, color = "Income Not in Census Group")) +
+      geom_segment(aes(x = 2017, y = INOT17, xend = 2018, yend = INOT18, color = "Income Not in Census Group")) +
+      geom_segment(aes(x = 2018, y = INOT18, xend = 2019, yend = INOT19, color = "Income Not in Census Group")) +
+      geom_segment(aes(x = 2019, y = INOT19, xend = 2020, yend = INOT20, color = "Income Not in Census Group")) +
+      
+      geom_point(alpha=0.75, size=3, aes(x = 2017, y = EXP17, color = "Total expenditure")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2018, y = EXP18, color = "Total expenditure")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2019, y = EXP19, color = "Total expenditure")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2020, y = EXP20, color = "Total expenditure")) +
+      geom_segment(aes(x = 2017, y = EXP17, xend = 2018, yend = EXP18, color = "Total expenditure")) +
+      geom_segment(aes(x = 2018, y = EXP18, xend = 2019, yend = EXP19, color = "Total expenditure")) +
+      geom_segment(aes(x = 2019, y = EXP19, xend = 2020, yend = EXP20, color = "Total expenditure"))
+      
   })
 }
 
