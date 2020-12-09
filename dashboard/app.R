@@ -61,11 +61,11 @@ ui <- dashboardPage(
                   )
                 )
               ),
-              box(width = 12, h3("This graph....")),
+              box(width = 12, h3("This graph demonstrates the core housing need rate according to each province. The data does not go until 2020 as the data is currently not available. The goal of this graph is to see if there is a relationship between COVID-19 and core housing need. This will be displayed in the graph when the data becomes available. The current trends in the data show us that each province is trending completely differently. Due to this looking at Canada as a whole will not be effective in anwsering the question; instead each province must be looked at individually.")),
               br(),
               h3("Data Sets"),
-              box(width = 12, h5("Government of Canada, S. (2018, August 23). Core housing need, 2016 Census. Retrieved November 27, 2020, from https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/chn-biml/index-eng.cfm"),
-              h5("CMHC. (2018, March 31). Canada Mortgage and Housing Corporation (Rep.). Retrieved November 27, 2020, from CMHC website:https://www.cmhc-schl.gc.ca/en/data-and-research/data-tables/households-core-housing-need-canada-province-territory-cmas"))
+              fluidRow(box(width = 12, h5("Government of Canada, S. (2018, August 23). Core housing need, 2016 Census. Retrieved November 27, 2020, from https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/chn-biml/index-eng.cfm"),
+              h5("CMHC. (2018, March 31). Canada Mortgage and Housing Corporation (Rep.). Retrieved November 27, 2020, from CMHC website:https://www.cmhc-schl.gc.ca/en/data-and-research/data-tables/households-core-housing-need-canada-province-territory-cmas")))
               
       ),
       # Graph2 content
@@ -146,14 +146,22 @@ ui <- dashboardPage(
       tabItem(tabName = "methods",
               h2(tags$b("Methods")),
               h3(tags$b("Linear Regression")),
-              box(width = 12, h4("Linear Regression is a statistical method that allows us to study the relationship between 2 quantitative variables. It assumes there is a relationship between the variables we are studying, and the data is normally distributed."),
-              h4("Citation: Yale.edu, Stats. (n.d.). Multiple Linear Regression. Retrieved November 25, 2020, from http://www.stat.yale.edu/Courses/1997-98/101/linreg.htm"),
-              h4("Method Demo: ")),
+              box(width = 12, 
+                  h4("Linear Regression is a statistical method that allows us to study the relationship between 2 quantitative variables. It assumes there is a relationship between the variables we are studying, and the data is normally distributed."),
+                  h4(withMathJax(paste0("\\(y = \\beta_0 + \\beta_1 x + \\epsilon \\)" ))),
+                  h4("example:"),
+                  h4("how to interpret"),
+                  h4("Citation: Yale.edu, Stats. (n.d.). Multiple Linear Regression. Retrieved November 25, 2020, from http://www.stat.yale.edu/Courses/1997-98/101/linreg.htm")
+              ),
               br(),
               h3(tags$b("Multiple Linear Regression")),
-              box(width = 12, h4("Multiple Linear Regression attempts to model the relationship between 2 or more explanatory variables and the response variable using a linear equation. It assumes there is a linear relationship between the variables we are studying, and the data is normally distributed."),
-              h4("Citation: Yale.edu, Stats. (n.d.). Multiple Linear Regression. Retrieved November 25, 2020, from http://www.stat.yale.edu/Courses/1997-98/101/linmult.htm"),
-              h4("Method Demo: "))
+              box(width = 12, 
+                  h4("Multiple Linear Regression attempts to model the relationship between 2 or more explanatory variables and the response variable using a linear equation. It assumes there is a linear relationship between the variables we are studying, and the data is normally distributed."),
+                  h4(withMathJax(paste0("\\(y = \\beta_0 + \\beta_1 x + \\beta_2 x_2 + \\epsilon \\)" )),
+                  h4("example:"),
+                  h4("how to interpret"),
+                  h4("Citation: Yale.edu, Stats. (n.d.). Multiple Linear Regression. Retrieved November 25, 2020, from http://www.stat.yale.edu/Courses/1997-98/101/linmult.htm"))
+              )
       )
     )
   )
