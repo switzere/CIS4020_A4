@@ -10,12 +10,12 @@ ui <- dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       id = "tabs",
-      menuItem("Home", tabName = "home", icon = icon("angry")),
-      menuItem("Graph 1", tabName = "graph1", icon = icon("angry")),
-      menuItem("Graph 2", tabName = "graph2", icon = icon("angry")),
-      menuItem("Graph 3", tabName = "graph3", icon = icon("angry")),
-      menuItem("Graph 4", tabName = "graph4", icon = icon("angry")),
-      menuItem("Methods", tabName = "methods", icon = icon("angry"))
+      menuItem("Home", tabName = "home", icon = icon("home")),
+      menuItem("Core Housing Need", tabName = "graph1", icon = icon("chart-line")),
+      menuItem("Unemployment Rate", tabName = "graph2", icon = icon("chart-bar")),
+      menuItem("Income vs. Expenses", tabName = "graph3", icon = icon("chart-line")),
+      menuItem("Affordable Housing Created", tabName = "graph4", icon = icon("chart-area")),
+      menuItem("Methods", tabName = "methods", icon = icon("book-open"))
     )
   ),
   ## Body content
@@ -113,10 +113,7 @@ ui <- dashboardPage(
       ),
       # Graph3 content
       tabItem(tabName = "graph3",
-              h2("Graph3 content"),
-              h3("I want to have a slider for covid effect so that the user can put in a perect of what they think
-                 covid will do to income and then use that to show a prediction of what it ends up being for 2020"),
-
+              h2("How has the low income communities in Canada been affected by the COVID-19 pandemic in terms of cost of living and income?"),
               fluidRow(
                 box(
                   plotOutput("plot4"),
@@ -142,7 +139,7 @@ ui <- dashboardPage(
       ),
       # Graph4 content
       tabItem(tabName = "graph4",
-              h2("Graph4 content"),
+              h2("How has the creation of affordable housing in Ontario been affected by COVID-19? Has there been more, less or the same amount created?"),
               br(),
               box(width = 12, h3("This graph...."),
               h5(actionLink("switchMethods4", "Click to learn more about linear regression"))),
@@ -242,8 +239,8 @@ server <- function(input, output, session) {
     ggplot(data = subset(g2.1Data, Province %in% strsplit(input$province, "  +")), aes(y = Percentage.of.Pop.with.Covid.by.100, x = Month, group=Province, color=Province)) +
       geom_line(size = 3, alpha = 0.75) +
       geom_point(size =3, alpha = 0.75) +
-      ggtitle("Total Covid Cases by Province") +
-      ylab("Total Rate of COVID-19 Cases (%)") + 
+      ggtitle("Percentage(%) of Covid Cases by Province per Month") +
+      ylab("Percentage(%) of COVID-19 Cases") + 
       theme(plot.title = element_text(face = "bold", size = 18))
   })
   
@@ -252,7 +249,7 @@ server <- function(input, output, session) {
     ICF <- subset(g3Data, Type %in% "Income Couple Families")
     ILP <- subset(g3Data, Type %in% "Income Lone Parents")
     INOT <- subset(g3Data, Type %in% "Income Not in Census Group")
-    EXP <- subset(g3Data, Type %in% "Total expenditure")
+    EXP <- subset(g3Data, Type %in% "Total Expenditure")
     
     
     lmICF <- lm(ICF$Expenditure ~ ICF$Year)
@@ -302,6 +299,7 @@ server <- function(input, output, session) {
       scale_x_continuous(breaks=c(2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020)) +
       expand_limits(y = 0) +
       labs(color = "Legend") +
+      theme(plot.title = element_text(face = "bold", size = 18)) +
       geom_point(alpha=0.75, size=3, aes(x = 2017, y = ICF17, color = "Income Couple Families", group = "ICF")) +
       geom_point(alpha=0.75, size=3, aes(x = 2018, y = ICF18, color = "Income Couple Families", group = "ICF")) +
       geom_point(alpha=0.75, size=3, aes(x = 2019, y = ICF19, color = "Income Couple Families", group = "ICF")) +
@@ -326,13 +324,13 @@ server <- function(input, output, session) {
       geom_segment(aes(x = 2018, y = INOT18, xend = 2019, yend = INOT19, color = "Income Not in Census Group")) +
       geom_segment(aes(x = 2019, y = INOT19, xend = 2020, yend = INOT20, color = "Income Not in Census Group")) +
       
-      geom_point(alpha=0.75, size=3, aes(x = 2017, y = EXP17, color = "Total expenditure")) +
-      geom_point(alpha=0.75, size=3, aes(x = 2018, y = EXP18, color = "Total expenditure")) +
-      geom_point(alpha=0.75, size=3, aes(x = 2019, y = EXP19, color = "Total expenditure")) +
-      geom_point(alpha=0.75, size=3, aes(x = 2020, y = EXP20, color = "Total expenditure")) +
-      geom_segment(aes(x = 2017, y = EXP17, xend = 2018, yend = EXP18, color = "Total expenditure")) +
-      geom_segment(aes(x = 2018, y = EXP18, xend = 2019, yend = EXP19, color = "Total expenditure")) +
-      geom_segment(aes(x = 2019, y = EXP19, xend = 2020, yend = EXP20, color = "Total expenditure"))
+      geom_point(alpha=0.75, size=3, aes(x = 2017, y = EXP17, color = "Total Expenditure")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2018, y = EXP18, color = "Total Expenditure")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2019, y = EXP19, color = "Total Expenditure")) +
+      geom_point(alpha=0.75, size=3, aes(x = 2020, y = EXP20, color = "Total Expenditure")) +
+      geom_segment(aes(x = 2017, y = EXP17, xend = 2018, yend = EXP18, color = "Total Expenditure")) +
+      geom_segment(aes(x = 2018, y = EXP18, xend = 2019, yend = EXP19, color = "Total Expenditure")) +
+      geom_segment(aes(x = 2019, y = EXP19, xend = 2020, yend = EXP20, color = "Total Expenditure"))
       
   })
 }
