@@ -6,6 +6,7 @@ library(ggplot2)
 
 ui <- dashboardPage(
   dashboardHeader(title = "Affordable Housing and COVID-19"),
+  skin = "purple",
   ## Sidebar content
   dashboardSidebar(
     sidebarMenu(
@@ -23,6 +24,7 @@ ui <- dashboardPage(
     tabItems(
       # First tab content
       tabItem(tabName = "home",
+              h1(tags$b("COVID-19 Impacts on Affordble Housing"), align = "center"),
               h2(tags$b("Social Justice Issue")),
               fluidRow(box(width = 12, h3("Investigating COVID-19 impacts on low income group’s access to affordable housing in Canada between January 2010 to October 2020."))),
               br(),
@@ -42,7 +44,7 @@ ui <- dashboardPage(
       
       # Graph1 content
       tabItem(tabName = "graph1",
-              h2("How has COVID-19 changed the amount of Canadians who meet the requirements for affordable housing in Canada?"),
+              h2(tags$b("How has COVID-19 changed the amount of Canadians who meet the requirements for affordable housing in Canada?")),
               fluidRow(
                 box(plotOutput("plot1")),
                 box(
@@ -74,7 +76,7 @@ ui <- dashboardPage(
       ),
       # Graph2 content
       tabItem(tabName = "graph2",
-              h2("How has COVID-19 affected job loss in Canada for 2020?"),
+              h2(tags$b("How has COVID-19 affected job loss in Canada for 2020?")),
               fluidRow(
                 box(plotOutput("plot2")),
                 box(plotOutput("plot3"))
@@ -118,7 +120,7 @@ ui <- dashboardPage(
       ),
       # Graph3 content
       tabItem(tabName = "graph3",
-              h2("How has the low income communities in Canada been affected by the COVID-19 pandemic in terms of cost of living and income?"),
+              h2(tags$b("How has the low income communities in Canada been affected by the COVID-19 pandemic in terms of cost of living and income?")),
               fluidRow(
                 box(
                   plotOutput("plot4"),
@@ -144,7 +146,7 @@ ui <- dashboardPage(
       ),
       # Graph4 content
       tabItem(tabName = "graph4",
-              h2("How has the creation of affordable housing in Ontario been affected by COVID-19? Has there been more, less or the same amount created?"),
+              h2(tags$b("How has the creation of affordable housing in Ontario been affected by COVID-19? Has there been more, less or the same amount created?")),
               br(),
               fluidRow(
                 box(
@@ -174,8 +176,7 @@ ui <- dashboardPage(
                   width = 6,
                   plotOutput("plot7")
                 ),
-                sliderInput(inputId = "PovPct", "PovPct:", 5, 25, 15),
-                
+                box(sliderInput(inputId = "PovPct", "PovPct:", 5, 25, 15)),
               ),
               br(),
               h3(tags$b("Multiple Linear Regression")),
@@ -196,8 +197,9 @@ ui <- dashboardPage(
                   plotOutput("plot9")
                 )
               ),
-              sliderInput(inputId = "X1", "X1 Value:", 3, 15, 9),
-              sliderInput(inputId = "X2", "X2 Value:", 1, 9, 5)
+              fluidRow(
+              box(sliderInput(inputId = "X1", "X1 Value:", 3, 15, 9)),
+              box(sliderInput(inputId = "X2", "X2 Value:", 1, 9, 5)))
       )
     )
   )
