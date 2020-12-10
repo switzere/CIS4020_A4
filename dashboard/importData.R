@@ -9,3 +9,5 @@ g2.1Data <- read.csv(file = './TotalCovidCasesProv.csv', header=TRUE, fileEncodi
 
 #allInformation.csv
 g3Data <- read.csv(file = './allInformation.csv', header=TRUE, fileEncoding="UTF-8-BOM")
+
+q4Data <- read.csv(file = './Housing Units created.csv', header=TRUE, fileEncoding="UTF-8-BOM")

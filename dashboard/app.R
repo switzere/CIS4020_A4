@@ -141,6 +141,11 @@ ui <- dashboardPage(
       tabItem(tabName = "graph4",
               h2("How has the creation of affordable housing in Ontario been affected by COVID-19? Has there been more, less or the same amount created?"),
               br(),
+              fluidRow(
+                box(
+                  plotOutput("plot5")),
+                box(
+                  plotOutput("plot6"))),
               box(width = 12, h3("This graph...."),
               h5(actionLink("switchMethods4", "Click to learn more about linear regression"))),
               br(),
@@ -332,6 +337,32 @@ server <- function(input, output, session) {
       geom_segment(aes(x = 2018, y = EXP18, xend = 2019, yend = EXP19, color = "Total Expenditure")) +
       geom_segment(aes(x = 2019, y = EXP19, xend = 2020, yend = EXP20, color = "Total Expenditure"))
       
+  })
+  
+  output$plot5 <- renderPlot({
+    colors <- c("Rental.units.created"="red","Households.no.longer.in.housing.need.as.a.result.of.afordable.housing"="blue")
+    
+    ggplot(q4Data, aes(x=Year)) +
+      geom_line(aes(y=Rental.units.created, color="Rental.units.created"), size=1.2) +
+      geom_line(aes(y=Households.no.longer.in.housing.need.as.a.result.of.afordable.housing, color="Households.no.longer.in.housing.need.as.a.result.of.afordable.housing"), size=1.2)+
+      scale_x_continuous(breaks=c(2012:2019)) +
+      ggtitle("Ontario Affordable Housing Created vs Households no Longer in Housing Need") +
+      xlab("Year") +
+      ylab("Number of Households") +
+      scale_colour_discrete("Legend", labels = c("Rental Units Created", "Households no Longer in Housing Need as a Result of Affordable Housing")) +
+      theme(legend.position="bottom", legend.direction = "vertical", legend.justification='left', plot.title = element_text(face = "bold", size = 16))
+  })
+  
+  output$plot6 <- renderPlot({  
+    colors <- c("Rental.units.created"="red","Households.no.longer.in.housing.need.as.a.result.of.afordable.housing"="blue")
+    
+    ggplot(q4Data, aes(x=Rental.units.created, y=Households.no.longer.in.housing.need.as.a.result.of.afordable.housing)) +
+      geom_point(size=2) +
+      ylab("Households Leaving Affordable Housing") +
+      xlab("Rental Units Created") +
+      ggtitle("Relationship Between Households Leaving and Rental Units Created of Affordable Housing") +
+      geom_smooth(method="lm",formula=y~x) + 
+      theme(plot.title = element_text(face = "bold", size = 16))
   })
 }
 
