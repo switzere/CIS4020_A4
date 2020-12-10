@@ -93,7 +93,8 @@ ui <- dashboardPage(
                             selected = "Ontario",
                             multiple = TRUE
                 )
-              )),
+              ),
+              img(src = "table.PNG")),
               box(width = 12, h3("This graph "),
               h5(actionLink("switchMethods2", "Click to learn more about multiple linear regression"))),
               br(),
@@ -129,7 +130,7 @@ ui <- dashboardPage(
               ),
               
               br(),
-              box(width = 12, h3("This graph...."),
+              box(width = 12, h3("The first graph represents "),
               h5(actionLink("switchMethods3", "Click to learn more about linear regression"))),
               br(),
               h3("Data Sets"),
@@ -216,8 +217,8 @@ server <- function(input, output, session) {
   
   output$plot1 <- renderPlot({
     #aes_string is used because input$location is passed to it as a string
-    ggplot(g1Data, aes_string(x="Year", y=input$location), color="red") + 
-      geom_line() + 
+    ggplot(g1Data, aes_string(x="Year", y=input$location)) + 
+      geom_line(size = 2, color = "red") + 
       ylab("Core Housing Need Rate (%)") + 
       ggtitle(paste(input$location, "Core Housing Need Rate From 1991 to 2016", sep=" ")) +
       theme(plot.title = element_text(face = "bold", size = 18))
