@@ -167,8 +167,7 @@ ui <- dashboardPage(
               box(width = 12, 
                   h4("Linear Regression is a statistical method that allows us to study the relationship between 2 quantitative variables. It assumes there is a relationship between the variables we are studying, and the data is normally distributed."),
                   h4(withMathJax(paste0("\\(y = \\beta_0 + \\beta_1 x + \\epsilon \\)" ))),
-                  h4("example:"),
-                  h4("how to interpret"),
+                  h4("This graph shows a linear relationship between Y and X. The blue line is the predicted value, when you change the slider the graph estimates where that point will be."),
                   h4("Citation: Yale.edu, Stats. (n.d.). Multiple Linear Regression. Retrieved November 25, 2020, from http://www.stat.yale.edu/Courses/1997-98/101/linreg.htm")
               ),
               fluidRow(
@@ -176,15 +175,14 @@ ui <- dashboardPage(
                   width = 6,
                   plotOutput("plot7")
                 ),
-                box(sliderInput(inputId = "PovPct", "PovPct:", 5, 25, 15)),
+                box(sliderInput(inputId = "PovPct", "X:", 5, 25, 15)),
               ),
               br(),
               h3(tags$b("Multiple Linear Regression")),
               box(width = 12, 
                   h4("Multiple Linear Regression attempts to model the relationship between 2 or more explanatory variables and the response variable using a linear equation. It assumes there is a linear relationship between the variables we are studying, and the data is normally distributed."),
                   h4(withMathJax(paste0("\\(y = \\beta_0 + \\beta_1 x + \\beta_2 x_2 + \\epsilon \\)" )),
-                  h4("example:"),
-                  h4("how to interpret"),
+                  h4("This graph shows a multiple linear relationship between Y and X1 + X2. The blue line on each graph shows the estimated point in relation to X1 or X2. Change X1 or X2 will adjust where the point will be based on how they are related to Y."),
                   h4("Citation: Yale.edu, Stats. (n.d.). Multiple Linear Regression. Retrieved November 25, 2020, from http://www.stat.yale.edu/Courses/1997-98/101/linmult.htm"))
               ),
               fluidRow(
@@ -401,10 +399,13 @@ server <- function(input, output, session) {
     
     yPoint <- lm$coefficients["(Intercept)"] + lm$coefficient["index$PovPct"] * input$PovPct
     
-    ggplot(index, aes(x = PovPct, y = Brth15to17)) +
+    ggplot(index, aes(x = PovPct, y = Brth15to17), group = 1) +
       geom_point() +
       geom_smooth(method='lm', formula = y~x) +
-      geom_point(aes(x = input$PovPct, y = yPoint, color = "red", size = 2))
+      geom_point(aes(x = input$PovPct, y = yPoint, color = "red", size = 2)) +
+      theme(legend.position = "none") +
+      xlab("X") +
+      ylab("Y")
     
   })
   
@@ -433,10 +434,6 @@ server <- function(input, output, session) {
       geom_point(aes(x = input$X2, y = yPoint, color = "red", size = 2))
     
   })
-  
-  
-  
-  
   
   
 }
