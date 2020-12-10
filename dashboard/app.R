@@ -169,6 +169,14 @@ ui <- dashboardPage(
                   h4("how to interpret"),
                   h4("Citation: Yale.edu, Stats. (n.d.). Multiple Linear Regression. Retrieved November 25, 2020, from http://www.stat.yale.edu/Courses/1997-98/101/linreg.htm")
               ),
+              fluidRow(
+                box(
+                  width = 6,
+                  plotOutput("plot7")
+                ),
+                sliderInput(inputId = "PovPct", "PovPct:", 5, 25, 15),
+                
+              ),
               br(),
               h3(tags$b("Multiple Linear Regression")),
               box(width = 12, 
@@ -177,7 +185,19 @@ ui <- dashboardPage(
                   h4("example:"),
                   h4("how to interpret"),
                   h4("Citation: Yale.edu, Stats. (n.d.). Multiple Linear Regression. Retrieved November 25, 2020, from http://www.stat.yale.edu/Courses/1997-98/101/linmult.htm"))
-              )
+              ),
+              fluidRow(
+                box(
+                  width = 6,
+                  plotOutput("plot8")
+                ),
+                box(
+                  width = 6,
+                  plotOutput("plot9")
+                )
+              ),
+              sliderInput(inputId = "X1", "X1 Value:", 3, 15, 9),
+              sliderInput(inputId = "X2", "X2 Value:", 1, 9, 5)
       )
     )
   )
@@ -370,6 +390,53 @@ server <- function(input, output, session) {
       geom_smooth(method="lm",formula=y~x) + 
       theme(plot.title = element_text(face = "bold", size = 16))
   })
+  
+  
+  
+  output$plot7 <- renderPlot({
+
+    lm <- lm(index$Brth15to17 ~ index$PovPct)
+    
+    yPoint <- lm$coefficients["(Intercept)"] + lm$coefficient["index$PovPct"] * input$PovPct
+    
+    ggplot(index, aes(x = PovPct, y = Brth15to17)) +
+      geom_point() +
+      geom_smooth(method='lm', formula = y~x) +
+      geom_point(aes(x = input$PovPct, y = yPoint, color = "red", size = 2))
+    
+  })
+  
+  output$plot8 <- renderPlot({
+    
+    lm <- lm(movies$Y ~ movies$X1 + movies$X2)
+
+    yPoint <- lm$coefficients["(Intercept)"] + lm$coefficients["movies$X1"] * input$X1 + lm$coefficients["movies$X2"] * input$X2
+
+    ggplot(movies, aes(x = X1, y = Y)) +
+      geom_point() +
+      geom_smooth(method='lm', formula = y~x) +
+      geom_point(aes(x = input$X1, y = yPoint, color = "red", size = 2))
+  
+  })
+  
+  output$plot9 <- renderPlot({
+    
+    lm <- lm(movies$Y ~ movies$X1 + movies$X2)
+
+    yPoint <- lm$coefficients["(Intercept)"] + lm$coefficients["movies$X1"] * input$X1 + lm$coefficients["movies$X2"] * input$X2
+    
+    ggplot(movies, aes(x = X2, y = Y)) +
+      geom_point() +
+      geom_smooth(method='lm', formula = y~x) +
+      geom_point(aes(x = input$X2, y = yPoint, color = "red", size = 2))
+    
+  })
+  
+  
+  
+  
+  
+  
 }
 
 
@@ -387,5 +454,11 @@ g3Data <- read.csv(file = './allInformation.csv', header=TRUE, fileEncoding="UTF
 
 #Housing Units created.csv
 q4Data <- read.csv(file = './Housing Units created.csv', header=TRUE, fileEncoding="UTF-8-BOM")
+
+#index.csv
+index <- read.csv(file = './index.csv', header=TRUE, fileEncoding="UTF-8-BOM")
+
+#movies.csv
+movies <- read.csv(file = './movies.csv', header=TRUE, fileEncoding="UTF-8-BOM")
 
 shinyApp(ui, server)
