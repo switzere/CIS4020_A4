@@ -33,7 +33,11 @@ ui <- dashboardPage(
               h3(actionLink("switchGraph4", "How has the creation of affordable housing in Ontario been affected by COVID-19? Has there been more, less or the same amount created?")))),
               br(),
               h2(tags$b("Literature Review")),
-              fluidRow(box(width = 12, h3("Affordable housing in Canada has become more and more of a pressing issue. With Covid-19 having a drastic effect on the Canadian economy our group looked at how this has effected affordable housing.  A study in 2014 found that “Nearly 1 in 5 households experience extreme housing affordability problems.” [Gaetz, S., Gulliver, T. & Richter, T. (2014)] This demonstrates how large a problem affordable housing is becoming. “From 2005 to 2018, the average residential price in the Toronto region increased about 150%” [Zhang, B. (2019)]. However even with this large increase the average wage did not increase thus leading to more people in need of affordable housing. Nowadays, Canada spends around 1% of its budget on social housing [Hulchanski, J. D. (2005)]. With the rise in rent and housing prices it is paramount that the government spends more money on social housing to try and fight the affordable housing crisis.")))
+              fluidRow(box(width = 12, h3("Affordable housing in Canada has become more and more of a pressing issue. With Covid-19 having a drastic effect on the Canadian economy our group looked at how this has effected affordable housing.  A study in 2014 found that “Nearly 1 in 5 households experience extreme housing affordability problems.” [Gaetz, S., Gulliver, T. & Richter, T. (2014)] This demonstrates how large a problem affordable housing is becoming. “From 2005 to 2018, the average residential price in the Toronto region increased about 150%” [Zhang, B. (2019)]. However even with this large increase the average wage did not increase thus leading to more people in need of affordable housing. Nowadays, Canada spends around 1% of its budget on social housing [Hulchanski, J. D. (2005)]. With the rise in rent and housing prices it is paramount that the government spends more money on social housing to try and fight the affordable housing crisis."))),
+              br(),
+              h2(tags$b("Definitions")),
+              fluidRow(box(width = 12, h3("Affordable housing: When a household spends less than 30% of its gross income on acceptable shelter."),
+                           h3("Low Income: as defined by Statistics Canada's Low-Income Cut-Offs (LICOs) https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110024101")))
       ),
       
       # Graph1 content
@@ -64,8 +68,8 @@ ui <- dashboardPage(
               box(width = 12, h3("This graph demonstrates the core housing need rate according to each province. The data does not go until 2020 as the data is currently not available. The goal of this graph is to see if there is a relationship between COVID-19 and core housing need. This will be displayed in the graph when the data becomes available. The current trends in the data show us that each province is trending completely differently. Due to this looking at Canada as a whole will not be effective in anwsering the question; instead each province must be looked at individually.")),
               br(),
               h3("Data Sets"),
-              fluidRow(box(width = 12, h5("Government of Canada, S. (2018, August 23). Core housing need, 2016 Census. Retrieved November 27, 2020, from https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/chn-biml/index-eng.cfm"),
-              h5("CMHC. (2018, March 31). Canada Mortgage and Housing Corporation (Rep.). Retrieved November 27, 2020, from CMHC website:https://www.cmhc-schl.gc.ca/en/data-and-research/data-tables/households-core-housing-need-canada-province-territory-cmas")))
+              fluidRow(box(width = 12, h4("Government of Canada, S. (2018, August 23). Core housing need, 2016 Census. Retrieved November 27, 2020, from https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/chn-biml/index-eng.cfm"),
+              h4("CMHC. (2018, March 31). Canada Mortgage and Housing Corporation (Rep.). Retrieved November 27, 2020, from CMHC website:https://www.cmhc-schl.gc.ca/en/data-and-research/data-tables/households-core-housing-need-canada-province-territory-cmas")))
               
       ),
       # Graph2 content
@@ -95,22 +99,22 @@ ui <- dashboardPage(
                 )
               ),
               img(src = "table.PNG")),
-              box(width = 12, h3("This graph "),
-              h5(actionLink("switchMethods2", "Click to learn more about multiple linear regression"))),
+              box(width = 12, h3("A multi-linear regression was used on the information above. The results of which showed a linear relationship between eviction freeze and unemployment rate. However, that there is little to no relationship between COVID-19 and either variable. This result accepts the null hypothesis and strongly suggests that COVID-19 did not have a major effect on unemployment rate."),
+              h4(actionLink("switchMethods2", "Click to learn more about multiple linear regression"))),
               br(),
               h3("Data Sets"),
-              fluidRow(box(width = 12, h5("Statistics Canada. Table 14-10-0287-03 Labour force characteristics by province, monthly, seasonally adjusted"),
-              h5("CMHC. (2020, March 25). COVID-19: Eviction Bans and Suspensions to Support Renters. Retrieved November 27, 2020, from https://www.cmhc-schl.gc.ca/en/rental-housing/covid-19-eviction-bans-and-suspensions-to-support-renters"),
-              h5("Canada, P. (2020, November 26). Government of Canada. Retrieved November 27, 2020, from https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html?topic=tilelink"),
-              h5("Dunham, J. (2020, April 01). Rent relief: What each province is doing to help residential tenants during the pandemic. Retrieved November 27, 2020, from https://www.ctvnews.ca/health/coronavirus/rent-relief-what-each-province-is-doing-to-help-residential-tenants-during-the-pandemic-1.4877615"),
-              h5("Government of Manitoba. (2020). COVID-19 NOVEL CORONAVIRUS. Retrieved November 27, 2020, from https://www.gov.mb.ca/cca/rtb/covid19/ll_qa.pdf"),
-              h5("Tattrie, J. (2020, March 31). N.S. landlords worried about confusion surrounding rent payments amid COVID-19 | CBC News. Retrieved November 27, 2020, from https://www.cbc.ca/news/canada/nova-scotia/nova-scotia-rent-businesses-covid-19-1.5515160"),
-              h5("Luft, A. (2020, March 18). COVID-19: Quebec housing board suspends eviction hearings. Retrieved November 27, 2020, from https://montreal.ctvnews.ca/covid-19-quebec-housing-board-suspends-eviction-hearings-1.4858201"),
-              h5("Office of Housing and Construction Standards. (2020, November 26). COVID-19 and Tenancies. Retrieved November 27, 2020, from https://www2.gov.bc.ca/gov/content/housing-tenancy/residential-tenancies/covid-19"),
-              h5("Jfeng. (2020, November 19). COVID-19: Information for Alberta Landlords and Tenants. Retrieved November 27, 2020, from https://www.landlordandtenant.org/covid-19-alberta-landlords-and-tenants/"),
-              h5("Toolkit, W. (2020, April 02). Province announces moratorium on evictions. Retrieved November 27, 2020, from https://www.princeedwardisland.ca/en/news/province-announces-moratorium-evictions"),
-              h5("Arthur White-Crummey, R. (2020, March 26). Saskatchewan suspending most evictions in light of COVID-19. Retrieved November 27, 2020, from https://leaderpost.com/news/saskatchewan/saskatchewan-suspending-most-evictions-in-light-of-covid-19"),
-              h5("Government of New Brunswick, C. (2017, April 24). REVISED / State of emergency declared in response to COVID-19. Retrieved November 27, 2020, from https://www2.gnb.ca/content/gnb/en/news/news_release.2020.03.0139.html"))),
+              fluidRow(box(width = 12, h4("Statistics Canada. Table 14-10-0287-03 Labour force characteristics by province, monthly, seasonally adjusted"),
+              h4("CMHC. (2020, March 25). COVID-19: Eviction Bans and Suspensions to Support Renters. Retrieved November 27, 2020, from https://www.cmhc-schl.gc.ca/en/rental-housing/covid-19-eviction-bans-and-suspensions-to-support-renters"),
+              h4("Canada, P. (2020, November 26). Government of Canada. Retrieved November 27, 2020, from https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html?topic=tilelink"),
+              h4("Dunham, J. (2020, April 01). Rent relief: What each province is doing to help residential tenants during the pandemic. Retrieved November 27, 2020, from https://www.ctvnews.ca/health/coronavirus/rent-relief-what-each-province-is-doing-to-help-residential-tenants-during-the-pandemic-1.4877615"),
+              h4("Government of Manitoba. (2020). COVID-19 NOVEL CORONAVIRUS. Retrieved November 27, 2020, from https://www.gov.mb.ca/cca/rtb/covid19/ll_qa.pdf"),
+              h4("Tattrie, J. (2020, March 31). N.S. landlords worried about confusion surrounding rent payments amid COVID-19 | CBC News. Retrieved November 27, 2020, from https://www.cbc.ca/news/canada/nova-scotia/nova-scotia-rent-businesses-covid-19-1.5515160"),
+              h4("Luft, A. (2020, March 18). COVID-19: Quebec housing board suspends eviction hearings. Retrieved November 27, 2020, from https://montreal.ctvnews.ca/covid-19-quebec-housing-board-suspends-eviction-hearings-1.4858201"),
+              h4("Office of Housing and Construction Standards. (2020, November 26). COVID-19 and Tenancies. Retrieved November 27, 2020, from https://www2.gov.bc.ca/gov/content/housing-tenancy/residential-tenancies/covid-19"),
+              h4("Jfeng. (2020, November 19). COVID-19: Information for Alberta Landlords and Tenants. Retrieved November 27, 2020, from https://www.landlordandtenant.org/covid-19-alberta-landlords-and-tenants/"),
+              h4("Toolkit, W. (2020, April 02). Province announces moratorium on evictions. Retrieved November 27, 2020, from https://www.princeedwardisland.ca/en/news/province-announces-moratorium-evictions"),
+              h4("Arthur White-Crummey, R. (2020, March 26). Saskatchewan suspending most evictions in light of COVID-19. Retrieved November 27, 2020, from https://leaderpost.com/news/saskatchewan/saskatchewan-suspending-most-evictions-in-light-of-covid-19"),
+              h4("Government of New Brunswick, C. (2017, April 24). REVISED / State of emergency declared in response to COVID-19. Retrieved November 27, 2020, from https://www2.gnb.ca/content/gnb/en/news/news_release.2020.03.0139.html"))),
       ),
       # Graph3 content
       tabItem(tabName = "graph3",
@@ -130,12 +134,12 @@ ui <- dashboardPage(
               ),
               
               br(),
-              box(width = 12, h3("The first graph represents "),
-              h5(actionLink("switchMethods3", "Click to learn more about linear regression"))),
+              box(width = 12, h3("The graph uses a linear regression model to demonstrate the relationship between income and expendature. All data that is shown after 2017 is estimated data that can be changed based on the sliders. These sliders allow for the points to be changed based on how much affect COVID-19 had on each group. Currently, the linear relationship shows that couple families are the best off, lone parents being the second best and not in census group being the worst off."),
+              h4(actionLink("switchMethods3", "Click to learn more about linear regression"))),
               br(),
               h3("Data Sets"),
-              box(width = 12, h5("Statistics Canada. Table 11-10-0222-01 Household spending, Canada, regions and provinces"),
-              h5("Statistics Canada. Table 11-10-0012-01 Distribution of total income by census family type and age of older partner, parent or individual"))
+              fluidRow(box(width = 12, h4("Statistics Canada. Table 11-10-0222-01 Household spending, Canada, regions and provinces"),
+              h4("Statistics Canada. Table 11-10-0012-01 Distribution of total income by census family type and age of older partner, parent or individual")))
               
       ),
       # Graph4 content
@@ -147,11 +151,12 @@ ui <- dashboardPage(
                   plotOutput("plot5")),
                 box(
                   plotOutput("plot6"))),
-              box(width = 12, h3("This graph...."),
-              h5(actionLink("switchMethods4", "Click to learn more about linear regression"))),
+              box(width = 12, h3("The graph on the left is a comparative graph showing the number of affordable housing units created and the number of people leaving affordable housing. The graph on the Right is the linear regression graph for the same data. Both these graphs show that there likely isn't a relationship between units created and people leaving. This accepts our null hypothesis that affordable housing units created is tied to number of people leaving affordable housing. In addition, this demonstrates that affordable housing is not a viable solution for low income people as it is merely a band-aid on a larger problem."),
+                  h3("The original null hypothesis was not able to be tested as 2020 data was not currently available. When the data becomes available we expect to test the null hypothesis of  COVID-19 didn't have an effect on creation of affordable housing in Ontario."),
+                  h4(actionLink("switchMethods4", "Click to learn more about linear regression"))),
               br(),
               h3("Data Sets"),
-              box(width = 12, h5("Government of Ontario. (2019, November 15). Ontario (Rep.). Retrieved November 27, 2020, from Government of Ontario website: https://www.ontario.ca/page/2018-2019-investment-affordable-housing-annual-public-reports"))
+              fluidRow(box(width = 12, h4("Government of Ontario. (2019, November 15). Ontario (Rep.). Retrieved November 27, 2020, from Government of Ontario website: https://www.ontario.ca/page/2018-2019-investment-affordable-housing-annual-public-reports")))
       ),
       # Methods
       tabItem(tabName = "methods",
